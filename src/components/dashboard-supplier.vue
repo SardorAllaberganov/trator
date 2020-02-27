@@ -7,15 +7,15 @@
                 </div>
                 <ul class="dashboard-links">
                     <li>
-                        <router-link :to="{ path: '/dashboard-supplier/products'}"> <span>Products</span> </router-link>
+                        <router-link to="/dashboard-supplier/products"> <img class="dashboard-icons" src="../assets/icons/product.svg" alt=""> <span>Products</span> </router-link>
                     </li>
                     <li>
-                        <router-link to="/dashboard-supplier/orders"> <span>Orders</span> </router-link>
+                        <router-link to="/dashboard-supplier/orders"> <img class="dashboard-icons" src="../assets/icons/order.svg" alt=""> <span>Orders</span> </router-link>
+                    </li>
+                    <li>
+                        <router-link to="/products"> <img class="dashboard-icons" src="../assets/icons/settings.svg" alt=""> <span>Settings</span> </router-link>
                     </li>
                     <!-- <li>
-                        <router-link to="/products"> <span>products</span> </router-link>
-                    </li>
-                    <li>
                         <router-link to="/products"> <span>products</span> </router-link>
                     </li>
                     <li>
@@ -42,7 +42,6 @@
                 <template>
                     <router-view></router-view>
                 </template>
-                <!-- <router-view></router-view> -->
             </div>
         </div>
         <!--<h1>{{ userData.id }}</h1>
@@ -52,7 +51,9 @@
 </template>
 
 <style lang="scss" scoped>
-    
+    .dashboard-icons{
+        width: 20px!important
+    }
 </style>
 
 <script>

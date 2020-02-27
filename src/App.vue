@@ -28,10 +28,14 @@ body{
 .toggle-sidebar{
   width: 60px!important;
   transition: all .3s;
-  img{
+  img:not(.dashboard-icons){
     transform: scale(0.7);
   }
+  span{
+    display: none;
+  }
 }
+
 .wrapper{
         display: flex;
     }
@@ -53,8 +57,14 @@ body{
             margin: 10px 0;
           }
           a{
+            display: flex;
+            align-items: center;
             text-decoration: none;
             color: #606060;
+            img{
+              width: 20px;
+              margin-right: 10px;
+            }
             transition: all .2s;
             &:hover{
               color: #232
@@ -94,7 +104,7 @@ body{
                     border-radius: 5px;
                     height: 3px;
                     margin: 2px 0;
-                    background: black;
+                    background: #606060;
                     display: block;
                 }
             }

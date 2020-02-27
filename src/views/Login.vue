@@ -111,7 +111,7 @@ export default {
             this.$router.push("/admin")
           }
           else if (this.$store.state.role === 'supplier'){
-            this.$router.push("/dashboard-supplier")
+            this.$router.push("/dashboard-supplier/products")
           }
           else{
             this.$router.push("/dashboard-company")

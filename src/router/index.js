@@ -1,11 +1,10 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../views/Login.vue";
-import Dashboard from "../components/dashboard-supplier.vue";
-import Admin from "../components/admin.vue";
+import Dashboard from "../components/Dashboard-supplier.vue";
+import Admin from "../components/Admin.vue";
 import store from '../store';
-import products from '../subcomponents/products.vue';
-import orders from '../subcomponents/order.vue'
+
 
 Vue.use(VueRouter);
 
@@ -23,14 +22,6 @@ const ifAuthenticated = (to, from, next) => {
     return
   }
   next('/')
-}
-
-const product = {
-  template: products
-}
-
-const order = {
-  template: orders
 }
 
 
@@ -51,13 +42,13 @@ const routes = [
           // при совпадении пути с шаблоном /user/:id/profile
           // в <router-view> компонента User будет показан UserProfile
           path: 'products',
-          component: product
+          component: require('../subcomponents/Products.vue').default
       },
       {
       // при совпадении пути с шаблоном /user/:id/posts
       // в <router-view> компонента User будет показан UserPosts
           path: 'orders',
-          component: order
+          component: require('../subcomponents/Order.vue').default
       }
   ]
   },
