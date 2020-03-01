@@ -106,12 +106,12 @@ export default {
       this.$store
         .dispatch("login", { phone, password })
         .then(() => {
-          console.log(this.$store.state.role);
-          if (this.$store.state.role === 'admin'){
+          if (this.$store.state.data.role === 'admin'){
             this.$router.push("/admin")
           }
-          else if (this.$store.state.role === 'supplier'){
+          else if (this.$store.state.data.role === 'supplier'){
             this.$router.push("/dashboard-supplier/products")
+            console.log(this.$store.state.data.role)
           }
           else{
             this.$router.push("/dashboard-company")

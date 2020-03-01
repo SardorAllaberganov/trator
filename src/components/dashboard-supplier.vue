@@ -32,7 +32,7 @@
                             <span></span>
                         </li>
                         <li id="dropdownToggle" @click="dropdownToggle">
-                            {{ userData.first_name + ' ' + userData.last_name }}
+                            {{ this.$store.state.userName }}
                         </li>
                     </ul>
                     <div id="dropdown">
@@ -64,7 +64,7 @@ import sidebarToggle from '../assets/js/custom.js'
 
 
 export default {
-    extends: dropdownToggle,sidebarToggle,
+    extends: dropdownToggle, sidebarToggle,
     methods:{
         logout: function () {
             this.$store.dispatch('logout')
@@ -75,9 +75,9 @@ export default {
     },
     
     beforeCreate(){
-        this.$store.dispatch("getUserDetail")
-        .then(()=>{
-        });
+        // this.$store.dispatch("getUserDetail")
+        // .then(()=>{
+        // });
     },
     computed: mapState(['userData'])
 }

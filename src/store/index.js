@@ -8,8 +8,10 @@ export default new Vuex.Store({
   state: {
     status: '',
     token: localStorage.getItem('token') || '',
-    userData: '',
-    role: '',
+    // userData: '',
+    // role: '',
+    userName: '' || localStorage.getItem('name'),
+    data: '',
   },
   mutations: {
     auth_request(state){
@@ -17,7 +19,7 @@ export default new Vuex.Store({
     },
     auth_success(state, token){
       state.status = 'success'
-      state.token = token
+      state.token = token    
     },
     auth_error(state){
       state.status = 'error'
@@ -27,11 +29,12 @@ export default new Vuex.Store({
       state.token = ''
     },
     user_data(state, userData){
-      state.userData = userData
+      state.data = userData
     },
-    user_role(state, role){
-      state.role = role
-    }
+    // user_role(state, role, userName){
+    //   state.role = role
+    //   state.userName = userName
+    // }
   },
   actions: {
     login({commit}, user){
@@ -42,14 +45,22 @@ export default new Vuex.Store({
           'Content-Type': 'application/json'
         } })
         .then(resp => {
-          const token = resp.data.data.token
-          const role = resp.data.data.role
-          const userId = resp.data.data.id  
-          localStorage.setItem('userId', userId);
-          localStorage.setItem('token', token)
-          axios.defaults.headers.common['Authorization'] =  token
-          commit('auth_success', token)
-          commit('user_role', role)
+          const data ={
+            token : resp.data.data.token,
+            role : resp.data.data.role,
+            userId : resp.data.data.id,
+            userName : resp.data.data.name  
+          }
+          localStorage.setItem('token', data.token);
+          localStorage.setItem('name', data.userName);
+          // console.log(data)
+          axios.defaults.headers.common['Authorization'] =  data.token
+          commit('user_data', data)
+          // localStorage.setItem('userName', userName);
+          // localStorage.setItem('userId', userId);
+          // localStorage.setItem('token', token)
+          commit('auth_success', data.token)
+          // commit('user_role', role)
           // console.log(role)
           resolve(resp)
         })
@@ -74,6 +85,21 @@ export default new Vuex.Store({
       console.log('2222',err)
     })
   },
+  async getUserProducts({commit}){
+    await axios.get('https://trator.me/api/products', {
+      headers: {
+        'Authorization': 'Bearer ' + localStorage.getItem("token"),
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      }
+    }).then(resp =>{
+      const userProducts = resp.data.data
+      console.log(userProducts);
+      commit('user_data', userProducts)
+    }).catch(err => {
+      console.log('2222',err)
+    })
+  },
   logout({commit}){
     return new Promise((resolve, reject) => {
       commit('logout')
@@ -87,5 +113,6 @@ export default new Vuex.Store({
   getters: {
     isLoggedIn: state => !!state.token,
     authStatus: state => state.status,
+    username: state => state.userName
   }
 })
